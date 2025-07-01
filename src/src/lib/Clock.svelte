@@ -12,8 +12,8 @@ const hourColor = '#00f';
 const minuteColor = '#f00';
 
 // 数字の位置を計算する関数
-function getNumberPosition(num, radius) {
-    const angle = (num * 30 - 90) * (Math.PI / 180);
+function getNumberPosition(num, divides, radius) {
+    const angle = (num * (360 / divides) - 90) * (Math.PI / 180);
     const x = 150 + Math.cos(angle) * radius;
     const y = 150 + Math.sin(angle) * radius;
     return { x, y };
@@ -22,7 +22,7 @@ function getNumberPosition(num, radius) {
 // 分目盛りの位置を計算する関数
 function getMinuteMarkPosition(minute) {
     const angle = (minute * 6 - 90) * (Math.PI / 180);
-    const outerRadius = 115;
+    const outerRadius = 125;
     const innerRadius = outerRadius - (minute % 5 === 0 ? 10 : 5); // 5分刻みは長く
 
     return {
@@ -55,7 +55,7 @@ function getMinuteMarkPosition(minute) {
     <!-- 数字 (時) -->
     {#each Array(12) as _, i}
       {@const num = i + 1}
-      {@const pos = getNumberPosition(num, 130)}
+      {@const pos = getNumberPosition(num, 12, 100)}
       <text
           x={pos.x}
           y={pos.y}
@@ -73,14 +73,14 @@ function getMinuteMarkPosition(minute) {
     <!-- 数字 (分) -->
     {#each Array(12) as _, i}
       {@const num = i + 1}
-      {@const pos = getNumberPosition(num, 90)}
+      {@const pos = getNumberPosition(num, 12, 137)}
       <text
           x={pos.x}
           y={pos.y}
           text-anchor="middle"
           dominant-baseline="central"
           font-family="Arial, sans-serif"
-          font-size="12"
+          font-size="11"
           font-weight="bold"
           fill={minuteColor}
       >
@@ -92,8 +92,8 @@ function getMinuteMarkPosition(minute) {
     <line
         x1="150"
         y1="150"
-        x2={150 + Math.cos(hourAngle * Math.PI / 180) * 70}
-        y2={150 + Math.sin(hourAngle * Math.PI / 180) * 70}
+        x2={150 + Math.cos(hourAngle * Math.PI / 180) * 80}
+        y2={150 + Math.sin(hourAngle * Math.PI / 180) * 80}
         stroke={hourColor}
         stroke-width="6"
         stroke-linecap="round"
@@ -103,8 +103,8 @@ function getMinuteMarkPosition(minute) {
     <line
         x1="150"
         y1="150"
-        x2={150 + Math.cos(minuteAngle * Math.PI / 180) * 100}
-        y2={150 + Math.sin(minuteAngle * Math.PI / 180) * 100}
+        x2={150 + Math.cos(minuteAngle * Math.PI / 180) * 120}
+        y2={150 + Math.sin(minuteAngle * Math.PI / 180) * 120}
         stroke={minuteColor}
         stroke-width="4"
         stroke-linecap="round"
