@@ -3,6 +3,7 @@
   import HourQuiz from './lib/HourQuiz.svelte';
   import MinuteQuiz from './lib/MinuteQuiz.svelte';
   import HourMinuteQuiz from './lib/HourMinuteQuiz.svelte';
+  import FreeMode from './lib/FreeMode.svelte';
   let currentMode = $state('menu');
   const handleModeSelect = (e) => {
     currentMode = e.detail;
@@ -21,5 +22,7 @@
     <MinuteQuiz on:complete={handleQuizComplete} />
   {:else if currentMode === 'both'}
     <HourMinuteQuiz on:complete={handleQuizComplete} />
+  {:else if currentMode === 'free'}
+    <FreeMode on:complete={handleQuizComplete} />
   {/if}
 </main>

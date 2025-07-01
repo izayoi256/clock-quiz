@@ -18,6 +18,11 @@ const quizModes = [
         id: 'both',
         title: 'なんじなんふんかな？',
         color: 'bg-purple-100 border-purple-300 hover:bg-purple-200'
+    },
+    {
+        id: 'free',
+        title: 'とけいをうごかしてみよう',
+        color: 'bg-yellow-100 border-yellow-300 hover:bg-yellow-200'
     }
 ];
 
