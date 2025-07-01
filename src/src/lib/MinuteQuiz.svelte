@@ -1,6 +1,7 @@
 <script lang="ts">
 import { createEventDispatcher } from 'svelte';
 import Clock from './Clock.svelte';
+import confetti from 'canvas-confetti';
 
 const dispatch = createEventDispatcher();
 
@@ -35,6 +36,17 @@ nextLevel();
 const complete = () => {
   dispatch('complete');
 }
+
+const onChooseAnswer = (correct: boolean) => {
+  chose = true;
+  if (correct) {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  }
+}
 </script>
 
 <Clock hour={correctHour} minute={correctMinute} />
@@ -46,7 +58,7 @@ const complete = () => {
         class:!bg-gray-300={!chose}
         class:!bg-gray-500={chose && !choice[1]}
         class:!bg-yellow-300={chose && choice[1]}
-        onclick={() => chose = true}
+        onclick={() => onChooseAnswer(choice[1])}
     >
       {choice[0]} ふん
     </button>
