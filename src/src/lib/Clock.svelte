@@ -8,10 +8,12 @@ $: hourAngle = ((hour % 12) * 30) + (minute * 0.5) - 90;
 // 分針の角度を計算
 $: minuteAngle = (minute * 6) - 90;
 
+const hourColor = '#00f';
+const minuteColor = '#f00';
+
 // 数字の位置を計算する関数
-function getNumberPosition(num) {
+function getNumberPosition(num, radius) {
     const angle = (num * 30 - 90) * (Math.PI / 180);
-    const radius = 130;
     const x = 150 + Math.cos(angle) * radius;
     const y = 150 + Math.sin(angle) * radius;
     return { x, y };
@@ -50,10 +52,10 @@ function getMinuteMarkPosition(minute) {
       />
     {/each}
 
-    <!-- 数字 -->
+    <!-- 数字 (時) -->
     {#each Array(12) as _, i}
       {@const num = i + 1}
-      {@const pos = getNumberPosition(num)}
+      {@const pos = getNumberPosition(num, 130)}
       <text
           x={pos.x}
           y={pos.y}
@@ -62,9 +64,27 @@ function getMinuteMarkPosition(minute) {
           font-family="Arial, sans-serif"
           font-size="20"
           font-weight="bold"
-          fill="#333"
+          fill={hourColor}
       >
         {num}
+      </text>
+    {/each}
+
+    <!-- 数字 (分) -->
+    {#each Array(12) as _, i}
+      {@const num = i + 1}
+      {@const pos = getNumberPosition(num, 90)}
+      <text
+          x={pos.x}
+          y={pos.y}
+          text-anchor="middle"
+          dominant-baseline="central"
+          font-family="Arial, sans-serif"
+          font-size="12"
+          font-weight="bold"
+          fill={minuteColor}
+      >
+        {num * 5 % 60}
       </text>
     {/each}
 
@@ -74,7 +94,7 @@ function getMinuteMarkPosition(minute) {
         y1="150"
         x2={150 + Math.cos(hourAngle * Math.PI / 180) * 70}
         y2={150 + Math.sin(hourAngle * Math.PI / 180) * 70}
-        stroke="#333"
+        stroke={hourColor}
         stroke-width="6"
         stroke-linecap="round"
     />
@@ -85,7 +105,7 @@ function getMinuteMarkPosition(minute) {
         y1="150"
         x2={150 + Math.cos(minuteAngle * Math.PI / 180) * 100}
         y2={150 + Math.sin(minuteAngle * Math.PI / 180) * 100}
-        stroke="#666"
+        stroke={minuteColor}
         stroke-width="4"
         stroke-linecap="round"
     />
