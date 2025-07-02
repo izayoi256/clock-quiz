@@ -39,6 +39,9 @@ const complete = () => {
 }
 
 const onChooseAnswer = (correct: boolean) => {
+  if (chose) {
+    return;
+  }
   chose = true;
   if (correct) {
     confetti({
